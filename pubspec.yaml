@@ -1,8 +1,9 @@
 name: virnavi_islamic_calculator
 description: Islamic prayer times, Hijri calendar, Hajj season detection, and Zakat calculator with per-country default configuration.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/virnavi/virnavi_islamic_calculator
 repository: https://github.com/virnavi/virnavi_islamic_calculator
+issue_tracker: https://github.com/virnavi/virnavi_islamic_calculator/issues
 
 topics:
   - islam
@@ -18,8 +19,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  equatable: ^2.0.7
   json_annotation: ^4.9.0
+  virnavi_ai_agent_mcp: ^0.0.3
+  virnavi_ai_agent_compose: 0.0.3
 
 dev_dependencies:
   flutter_test:
@@ -27,6 +29,7 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   json_serializable: ^6.8.0
   build_runner: any
+  virnavi_ai_agent_mcp_generator: ^0.0.3
 
 flutter:
   assets:

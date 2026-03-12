@@ -1,4 +1,6 @@
 part of "models.dart";
+
+@McpModel()
 @JsonSerializable()
 class SalahCalculationMethod {
   @JsonKey(name: "id")

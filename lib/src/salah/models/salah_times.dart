@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:virnavi_ai_agent_mcp/virnavi_ai_agent_mcp.dart';
 
 import '../../helper/date_time_helper.dart';
 import '../../helper/hijri_helper.dart';
@@ -8,7 +9,9 @@ import '../services/salah_time_calculator.dart';
 import 'config/models.dart';
 
 part 'salah_times.g.dart';
+part 'salah_times.mcp.dart';
 
+@McpModel()
 @JsonSerializable(explicitToJson: true)
 class SalahTimes {
   @JsonKey(

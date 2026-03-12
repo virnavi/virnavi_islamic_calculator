@@ -20,7 +20,7 @@ A Flutter package for Islamic calculations — prayer times, Hijri calendar, Ram
 
 ```yaml
 dependencies:
-  virnavi_islamic_calculator: ^1.0.0
+  virnavi_islamic_calculator: ^0.0.2
 ```
 
 ---
@@ -115,6 +115,31 @@ print('Net wealth: ${result.netWealth}');
 print('Nisab: ${result.applicableNisab}');
 print('Zakat due: ${result.zakatDue}');    // 0 if below nisab
 print('Is zakat due: ${result.isZakatDue}');
+```
+
+### IslamicCalculatorService (unified API)
+
+A single service class that wraps all package functionality in one place:
+
+```dart
+const service = IslamicCalculatorService();
+
+// Prayer times
+final method = await service.getCalculationMethod('karachi');
+final times  = await service.getSalahTimes(
+  date: DateTime.now(), latitude: 23.7771, longitude: 90.3994, method: method,
+);
+
+// Hijri date
+final hijri = service.toHijriDate(DateTime.now());
+
+// Zakat
+final result = service.calculateZakat(
+  goldPricePerGram: 8000, silverPricePerGram: 100, cash: 500000, debts: 50000,
+);
+
+// Country defaults
+final country = await service.getCountryConfig('BD');
 ```
 
 ---

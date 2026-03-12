@@ -7,20 +7,22 @@ part of 'salah_times.dart';
 // **************************************************************************
 
 SalahTimes _$SalahTimesFromJson(Map<String, dynamic> json) => SalahTimes(
-      fajr: DateTimeHelper.fromRangeJson(json['fajr'] as Map<String, dynamic>),
-      dhuhr:
-          DateTimeHelper.fromRangeJson(json['dhuhr'] as Map<String, dynamic>),
-      asr: DateTimeHelper.fromRangeJson(json['asr'] as Map<String, dynamic>),
-      maghrib:
-          DateTimeHelper.fromRangeJson(json['maghrib'] as Map<String, dynamic>),
-      isha: DateTimeHelper.fromRangeJson(json['isha'] as Map<String, dynamic>),
-      witr: DateTimeHelper.fromRangeJson(json['witr'] as Map<String, dynamic>),
-      duha: DateTimeHelper.fromRangeJson(json['duha'] as Map<String, dynamic>),
-      awwabin:
-          DateTimeHelper.fromRangeJson(json['awwabin'] as Map<String, dynamic>),
-      tahajjud: DateTimeHelper.fromRangeJson(
-          json['tahajjud'] as Map<String, dynamic>),
-    );
+  fajr: DateTimeHelper.fromRangeJson(json['fajr'] as Map<String, dynamic>),
+  dhuhr: DateTimeHelper.fromRangeJson(json['dhuhr'] as Map<String, dynamic>),
+  asr: DateTimeHelper.fromRangeJson(json['asr'] as Map<String, dynamic>),
+  maghrib: DateTimeHelper.fromRangeJson(
+    json['maghrib'] as Map<String, dynamic>,
+  ),
+  isha: DateTimeHelper.fromRangeJson(json['isha'] as Map<String, dynamic>),
+  witr: DateTimeHelper.fromRangeJson(json['witr'] as Map<String, dynamic>),
+  duha: DateTimeHelper.fromRangeJson(json['duha'] as Map<String, dynamic>),
+  awwabin: DateTimeHelper.fromRangeJson(
+    json['awwabin'] as Map<String, dynamic>,
+  ),
+  tahajjud: DateTimeHelper.fromRangeJson(
+    json['tahajjud'] as Map<String, dynamic>,
+  ),
+);
 
 Map<String, dynamic> _$SalahTimesToJson(SalahTimes instance) =>
     <String, dynamic>{

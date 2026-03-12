@@ -1,3 +1,20 @@
+## 0.0.2
+
+### Added
+- `IslamicCalculatorService` — unified service class exposing all package features through a single entry point
+- MCP integration: `@McpService`, `@McpTool`, `@McpParam` on `IslamicCalculatorService` for AI agent tool registration
+- `@McpModel` annotations on all model classes (`SalahTimes`, `HijriDate`, `ZakatCalculator`, `ZakatResult`, `SalahCalculationMethod`, `CountryConfig`, `SalahTimeConfig`, and all config sub-models)
+- `@McpSummary` class (`IslamicCalculatorSummary`) in the barrel file for one-call tool wiring via `virnavi_ai_agent_mcp`
+
+### Changed
+- Added `virnavi_ai_agent_mcp: ^0.0.1` dependency
+- Added `virnavi_ai_agent_mcp_generator: any` dev dependency
+
+### Removed
+- Unused `equatable` dependency
+
+---
+
 ## 0.0.1
 
 Initial stable release.

@@ -1,5 +1,6 @@
 part of "models.dart";
 
+@McpModel()
 @JsonSerializable()
 class ConfigLatitude {
   @JsonKey(name: 'default')

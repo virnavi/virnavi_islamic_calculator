@@ -4,6 +4,130 @@ import 'package:virnavi_islamic_calculator/virnavi_islamic_calculator.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  // ── IslamicCalculatorService ───────────────────────────────────────────────
+
+  group('IslamicCalculatorService', () {
+    const service = IslamicCalculatorService();
+
+    test('getSalahTimes returns correct prayer times for Dhaka 2025', () async {
+      final countryConfig = await service.getCountryConfig('bd');
+      var method =
+          await service.getCalculationMethod(countryConfig.method.defaultValue);
+      method = method.copyWith(madhab: countryConfig.asrMethod.defaultValue);
+
+      final times = await service.getSalahTimes(
+        date: DateTime.utc(2025, 9, 23),
+        latitude: 23.777176,
+        longitude: 90.399452,
+        method: method,
+      );
+
+      expect(
+        DateTime.utc(2025, 9, 22, 22, 32).difference(times.fajr.start).inMinutes,
+        closeTo(0, 1),
+      );
+      expect(
+        DateTime.utc(2025, 9, 23, 5, 51).difference(times.dhuhr.start).inMinutes,
+        closeTo(0, 1),
+      );
+      expect(
+        DateTime.utc(2025, 9, 23, 11, 54).difference(times.maghrib.start).inMinutes,
+        closeTo(0, 1),
+      );
+    });
+
+    test('toHijriDate converts Gregorian to Hijri correctly', () {
+      final hijri = service.toHijriDate(DateTime(2023, 3, 23));
+      expect(hijri.year, 1444);
+      expect(hijri.month, 9); // Ramadan
+      expect(hijri.day, 1);
+      expect(hijri.isRamadan, isTrue);
+    });
+
+    test('todayHijri returns a valid HijriDate for today', () {
+      final hijri = service.todayHijri;
+      expect(hijri.year, greaterThan(1440));
+      expect(hijri.month, inInclusiveRange(1, 12));
+      expect(hijri.day, inInclusiveRange(1, 30));
+    });
+
+    test('calculateZakat returns correct result above nisab', () {
+      final result = service.calculateZakat(
+        goldPricePerGram: 8000,
+        silverPricePerGram: 100,
+        cash: 500000,
+        goldValue: 200000,
+        investments: 100000,
+        debts: 50000,
+      );
+      expect(result.isZakatDue, isTrue);
+      expect(result.zakatDue, closeTo(18750, 1));
+      expect(result.netWealth, closeTo(750000, 1));
+      expect(result.nisabStandard, NisabStandard.gold);
+    });
+
+    test('calculateZakat returns zero when below nisab', () {
+      final result = service.calculateZakat(
+        goldPricePerGram: 8000,
+        silverPricePerGram: 100,
+        cash: 400000,
+        debts: 100000,
+      );
+      expect(result.isZakatDue, isFalse);
+      expect(result.zakatDue, closeTo(0, 0.01));
+    });
+
+    test('calculateZakat uses silver nisab when specified', () {
+      final result = service.calculateZakat(
+        goldPricePerGram: 8000,
+        silverPricePerGram: 100,
+        nisabStandard: NisabStandard.silver,
+        cash: 300000,
+      );
+      expect(result.isZakatDue, isTrue);
+      expect(result.applicableNisab, closeTo(59500, 1));
+      expect(result.zakatDue, closeTo(300000 * 0.025, 1));
+    });
+
+    test('getCalculationMethod returns the correct method', () async {
+      final method = await service.getCalculationMethod('karachi');
+      expect(method.id, 'karachi');
+      expect(method.fajrAngle, isNonZero);
+    });
+
+    test('getCalculationMethod throws for unknown method', () async {
+      expect(
+        () => service.getCalculationMethod('unknown_method_xyz'),
+        throwsA(isA<Exception>()),
+      );
+    });
+
+    test('getCountryConfig returns config for Bangladesh', () async {
+      final config = await service.getCountryConfig('bd');
+      expect(config.method.defaultValue, isNotEmpty);
+      expect(config.ids, isNotEmpty);
+    });
+
+    test('getCountryConfig throws for unknown country code', () async {
+      expect(
+        () => service.getCountryConfig('ZZ'),
+        throwsA(isA<Exception>()),
+      );
+    });
+
+    test('getAllCalculationMethods returns a non-empty list', () async {
+      final methods = await service.getAllCalculationMethods();
+      expect(methods, isNotEmpty);
+      expect(methods.every((m) => m.id.isNotEmpty), isTrue);
+    });
+
+    test('getConfig returns a valid SalahTimeConfig', () async {
+      final config = await service.getConfig();
+      expect(config.methods, isNotEmpty);
+      expect(config.config, isNotEmpty);
+    });
+  });
+
   test('SalahTime calculate returns correct prayer times for Dhaka 2025',
       () async {
   final countryConfig = (await CountryConfig.getByCountryCode('bd'));

@@ -73,14 +73,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.12"
-  equatable:
-    dependency: transitive
-    description:
-      name: equatable
-      sha256: "567c64b3cb4cf82397aac55f4f0cbd3ca20d77c6c03bedbc4ceaddc08904aef7"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.7"
   fake_async:
     dependency: transitive
     description:
@@ -405,13 +397,29 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
+  virnavi_ai_agent_compose:
+    dependency: transitive
+    description:
+      name: virnavi_ai_agent_compose
+      sha256: "0a5d3e0d567790ea277a31d45be447bb9d4cce9f33f541e0aea0e38d7d8265f5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
+  virnavi_ai_agent_mcp:
+    dependency: transitive
+    description:
+      name: virnavi_ai_agent_mcp
+      sha256: "01b53c72ba692ca42594d39a69053922c348052d675789b6919d8a874e1e30dc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   virnavi_islamic_calculator:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.2"
   vm_service:
     dependency: transitive
     description:

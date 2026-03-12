@@ -3,9 +3,11 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:virnavi_ai_agent_mcp/virnavi_ai_agent_mcp.dart';
 import '../../enums/enums.dart';
 
 part 'models.g.dart';
+part 'models.mcp.dart';
 part 'adjustments.dart';
 part 'country_config.dart';
 part 'config_asr_method.dart';

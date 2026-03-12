@@ -1,10 +1,17 @@
+import 'package:json_annotation/json_annotation.dart';
+import 'package:virnavi_ai_agent_mcp/virnavi_ai_agent_mcp.dart';
+
+part 'zakat_calculator.g.dart';
+part 'zakat_calculator.mcp.dart';
+
 /// Which standard to use for the Nisab threshold.
+@JsonEnum()
 enum NisabStandard {
   /// Use 85 grams of gold as the nisab threshold (most common contemporary view).
-  gold,
+  @JsonValue('gold') gold,
 
   /// Use 595 grams of silver as the nisab threshold (lower threshold, more conservative).
-  silver,
+  @JsonValue('silver') silver,
 }
 
 /// Zakat calculator for Islamic obligatory almsgiving.
@@ -14,6 +21,8 @@ enum NisabStandard {
 ///
 /// **Nisab** is the minimum threshold of wealth, defined as the equivalent of
 /// either 85 grams of gold or 595 grams of silver.
+@McpModel()
+@JsonSerializable()
 class ZakatCalculator {
   /// Standard nisab in grams of gold.
   static const double nisabGoldGrams = 85.0;
@@ -108,6 +117,11 @@ class ZakatCalculator {
   /// Zakat amount due (2.5% of net zakatable wealth), or 0 if below nisab.
   double get zakatDue => isZakatDue ? netWealth * zakatRate : 0.0;
 
+  factory ZakatCalculator.fromJson(Map<String, dynamic> json) =>
+      _$ZakatCalculatorFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ZakatCalculatorToJson(this);
+
   /// Zakat result as a structured summary.
   ZakatResult calculate() {
     return ZakatResult(
@@ -124,6 +138,8 @@ class ZakatCalculator {
 }
 
 /// The result of a zakat calculation.
+@McpModel()
+@JsonSerializable()
 class ZakatResult {
   /// The nisab standard used for this calculation.
   final NisabStandard nisabStandard;
@@ -159,6 +175,11 @@ class ZakatResult {
     required this.isZakatDue,
     required this.zakatDue,
   });
+
+  factory ZakatResult.fromJson(Map<String, dynamic> json) =>
+      _$ZakatResultFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ZakatResultToJson(this);
 
   @override
   String toString() =>

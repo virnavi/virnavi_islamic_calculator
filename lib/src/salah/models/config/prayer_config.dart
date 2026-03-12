@@ -1,5 +1,6 @@
 part of "models.dart";
 
+@McpModel()
 @JsonSerializable()
 class SalahTimeConfig {
   @JsonKey(name: "madhabs")

@@ -1,5 +1,6 @@
 part of "models.dart";
 
+@McpModel()
 @JsonSerializable()
 class CountryInfo {
   final String id;

@@ -1,7 +1,15 @@
+import 'package:json_annotation/json_annotation.dart';
+import 'package:virnavi_ai_agent_mcp/virnavi_ai_agent_mcp.dart';
+
+part 'hijri_helper.g.dart';
+part 'hijri_helper.mcp.dart';
+
 /// Tabular Islamic (Hijri) calendar date.
 ///
 /// Uses the standard astronomical tabular calendar with epoch
 /// 1 Muharram 1 AH = JDN 1948440 (Friday, July 16, 622 CE Julian).
+@McpModel()
+@JsonSerializable()
 class HijriDate {
   final int year;
   final int month; // 1–12
@@ -78,6 +86,11 @@ class HijriDate {
   ];
 
   String get monthName => _monthNames[month];
+
+  factory HijriDate.fromJson(Map<String, dynamic> json) =>
+      _$HijriDateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$HijriDateToJson(this);
 
   @override
   String toString() => '$day $monthName $year AH';
